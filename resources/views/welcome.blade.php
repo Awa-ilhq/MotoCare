@@ -134,9 +134,7 @@
                 <div class="galeri-item galeri-wide">
                     <img src="{{ asset('images/galeri6.png') }}" alt="Galeri 6">
                 </div>
-                <div class="galeri-item">
-                    <img src="{{ asset('images/galeri7.png') }}" alt="Galeri 7">
-                </div>
+
             </div>
         </div>
     </section>
@@ -261,13 +259,23 @@
                 </ul>
             </div>
             <div class="footer-col footer-social">
-                <h4>Sosial Media :</h4>
-                <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
+    <h4>Sosial Media :</h4>
+    <div class="social-icons">
+        <!-- Ganti dengan link halaman Facebook Anda -->
+        <a href="https://facebook.com/awa.udin.984" target="_blank" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        
+        <!-- Ganti dengan link profil TikTok Anda -->
+        <a href="https://instagram.com/awa_ilhq/" target="_blank" class="social-icon">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://wa.me/0882003668995/" target="_blank" class="social-icon">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
         </div>
         <div class="footer-bottom">
             <p>© Copyright 2026 Motocare |</p>
