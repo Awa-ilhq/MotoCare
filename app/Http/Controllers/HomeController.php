@@ -71,8 +71,18 @@ class HomeController extends Controller
         $validated['plate_number'] = strtoupper($validated['plate_number']);
         $validated['status'] = 'pending';
 
-        Booking::create($validated);
+        $booking = Booking::create($validated);
+        $booking->load('service');
 
-        return back()->with('success', 'Booking berhasil dikirim! Kami akan mengonfirmasi jadwal servis Anda.');
+        $message = "Halo MotoCare, saya ingin melakukan booking servis.\n\n"
+            ."Nama: {$booking->customer_name}\n"
+            ."No WA: {$booking->whatsapp_number}\n"
+            ."Plat Nomor: {$booking->plate_number}\n"
+            ."Tanggal Servis: {$booking->service_date->locale('id')->translatedFormat('d F Y')}\n"
+            ."Jenis Servis: {$booking->service->name}";
+
+        $whatsappUrl = 'https://wa.me/'.config('services.whatsapp.booking_number').'?text='.urlencode($message);
+
+        return redirect()->away($whatsappUrl);
     }
 }
