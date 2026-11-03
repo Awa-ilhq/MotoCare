@@ -11,6 +11,14 @@
 </head>
 <body>
 
+    @if (session('success'))
+        <div class="flash-alert" role="alert">
+            <i class="fas fa-circle-check"></i>
+            <span>{{ session('success') }}</span>
+            <button type="button" onclick="this.parentElement.remove()" aria-label="Tutup">&times;</button>
+        </div>
+    @endif
+
     <!-- ============================================================
          NAVBAR
     ============================================================ -->
@@ -23,6 +31,7 @@
                 <li><a href="#beranda" class="nav-link">Beranda</a></li>
                 <li><a href="#tentang" class="nav-link">Tentang kami</a></li>
                 <li><a href="#layanan" class="nav-link">Layanan</a></li>
+                <li><a href="#booking" class="nav-link">Booking</a></li>
                 <li><a href="#galeri" class="nav-link">Galeri</a></li>
                 <li><a href="#kontak" class="nav-link">Kontak</a></li>
             </ul>
@@ -77,34 +86,19 @@
                 <p class="section-sub"><span class="red">SDM yang Berkualitas</span>, Terampil dan didukung dengan Alat yg Modern</p>
             </div>
             <div class="layanan-grid">
-                <div class="layanan-card">
-                    <div class="layanan-img">
-                        <img src="{{ asset('images/ganti-oli.png') }}" alt="Ganti Oli">
+                @forelse ($services as $service)
+                    <div class="layanan-card">
+                        <div class="layanan-img">
+                            <img src="{{ $service->image_url }}" alt="{{ $service->name }}">
+                        </div>
+                        <h3>{{ strtoupper($service->name) }}</h3>
+                        <p>{{ $service->description }}</p>
+                        <p class="layanan-price">Estimasi: Rp {{ number_format($service->estimated_price, 0, ',', '.') }}</p>
+                        <a href="#booking" class="btn btn-red layanan-btn">Booking Layanan Ini</a>
                     </div>
-                    <h3>GANTI OLI</h3>
-                    <p>Ganti oli adalah servis rutin terpenting untuk setiap mobil. Oli mesin berfungsi sebagai pelumas untuk semua komponen dalam mesin. Penggantian oli mesin dilakukan dengan spek oli dan jumlah yang tepat</p>
-                </div>
-                <div class="layanan-card">
-                    <div class="layanan-img">
-                        <img src="{{ asset('images/tune-up.png') }}" alt="Tune Up">
-                    </div>
-                    <h3>TUNE UP</h3>
-                    <p>Tune up adalah prosedur perawatan rutin pada kendaraan yang bertujuan untuk memeriksa, membersihkan, dan menyetel ulang berbagai komponen mesin agar performanya kembali optimal, bertenaga, dan hemat bahan bakar</p>
-                </div>
-                <div class="layanan-card">
-                    <div class="layanan-img">
-                        <img src="{{ asset('images/bore-up.png') }}" alt="Bore Up">
-                    </div>
-                    <h3>BORE UP</h3>
-                    <p>Bore up adalah proses modifikasi mesin yang dilakukan dengan memperbesar diameter silinder dan piston untuk meningkatkan kapasitas (cc) dan tenaga mesin</p>
-                </div>
-                <div class="layanan-card">
-                    <div class="layanan-img">
-                        <img src="{{ asset('images/ganti-ban.png') }}" alt="Ganti Ban">
-                    </div>
-                    <h3>GANTI BAN</h3>
-                    <p>Ban wajib diganti saat tapaknya sudah aus, karena nyata, atau telah mencapai batas pemakaian 3 hingga 5 tahun agar keamanan dan kenyamanan tetap terjaga (1, 2, 3, 4, 5)</p>
-                </div>
+                @empty
+                    <p class="layanan-empty">Belum ada layanan yang tersedia.</p>
+                @endforelse
             </div>
         </div>
     </section>
@@ -212,16 +206,71 @@
                 <p class="form-desc">Kami siap membantu menyelesaikan kendala dan kebutuhan bisnis Anda. Tinggalkan pesan melalui formulir di bawah ini agar tim spesialis kami dapat segera menghubungi Anda.</p>
             </div>
             <div class="form-right">
-                <form action="#" method="POST" class="contact-form">
+                <form action="{{ route('contact.store') }}" method="POST" class="contact-form">
                     @csrf
+                    @if ($errors->hasAny(['name', 'email', 'phone', 'message']))
+                        <div class="form-errors">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="form-row">
-                        <input type="email" name="email" placeholder="Email" class="form-input">
-                        <input type="tel" name="phone" placeholder="Nomor HP" class="form-input">
+                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Nama" class="form-input" required>
+                        <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="Nomor HP" class="form-input" required>
                     </div>
-                    <input type="email" name="email2" placeholder="Email" class="form-input full">
-                    <textarea name="pesan" placeholder="pesan" class="form-textarea"></textarea>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" class="form-input full" required>
+                    <textarea name="message" placeholder="Pesan" class="form-textarea" required>{{ old('message') }}</textarea>
                     <div class="form-submit-row">
                         <button type="submit" class="btn btn-red">Kirim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FORM BOOKING
+    ============================================================ -->
+    <section class="form-section booking-section" id="booking">
+        <div class="form-container">
+            <div class="form-left">
+                <p class="form-from">Booking</p>
+                <h2 class="form-title">Booking Servis Sekarang</h2>
+                <p class="form-desc">Isi data kendaraan dan pilih jenis servis yang Anda butuhkan. Tim kami akan menghubungi Anda melalui WhatsApp untuk mengonfirmasi jadwal servis.</p>
+            </div>
+            <div class="form-right">
+                <form action="{{ route('booking.store') }}" method="POST" class="contact-form">
+                    @csrf
+                    @if ($errors->hasAny(['customer_name', 'whatsapp_number', 'plate_number', 'service_date', 'service_id']))
+                        <div class="form-errors">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="form-row">
+                        <input type="text" name="customer_name" value="{{ old('customer_name') }}" placeholder="Nama Pelanggan" class="form-input" required>
+                        <input type="tel" name="whatsapp_number" value="{{ old('whatsapp_number') }}" placeholder="Nomor WhatsApp" class="form-input" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="plate_number" value="{{ old('plate_number') }}" placeholder="Plat Nomor (contoh: AE 1234 XY)" class="form-input" style="text-transform: uppercase;" required>
+                        <input type="date" name="service_date" value="{{ old('service_date') }}" min="{{ date('Y-m-d') }}" class="form-input" required>
+                    </div>
+                    <select name="service_id" class="form-input" required>
+                        <option value="">-- Pilih Jenis Servis --</option>
+                        @foreach ($services as $service)
+                            <option value="{{ $service->id }}" @selected(old('service_id') == $service->id)>
+                                {{ $service->name }} - Rp {{ number_format($service->estimated_price, 0, ',', '.') }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="form-submit-row">
+                        <button type="submit" class="btn btn-red">Booking Sekarang</button>
                     </div>
                 </form>
             </div>

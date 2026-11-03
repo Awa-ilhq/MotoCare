@@ -872,3 +872,76 @@ ul { list-style: none; }
     .brands-container,
     .footer-container { padding: 0 20px; }
 }
+/* ============================================================
+   FLASH MESSAGE, FORM ERROR & BOOKING
+============================================================ */
+.flash-alert {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 90%;
+    padding: 14px 20px;
+    border-radius: 6px;
+    background: #16A34A;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.flash-alert button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.form-errors {
+    padding: 12px 16px;
+    border: 1px solid #FECACA;
+    border-radius: 4px;
+    background: #FEE2E2;
+    color: #991B1B;
+    font-size: 13px;
+}
+
+.form-errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.layanan-price {
+    margin-top: 8px;
+    color: var(--red) !important;
+    font-weight: 700;
+}
+
+.layanan-btn {
+    align-self: flex-start;
+    margin-top: 14px;
+    padding: 10px 24px;
+    font-size: 13px;
+}
+
+.layanan-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--gray);
+}
+
+.booking-section {
+    background: #F3F4F6;
+}
+
+select.form-input {
+    appearance: none;
+    cursor: pointer;
+}
