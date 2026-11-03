@@ -169,7 +169,7 @@
                     <div class="kontak-icon email">
                         <i class="fas fa-envelope"></i>
                     </div>
-                    <h3>joko@gmail.com</h3>
+                    <h3>halo@motocare.id</h3>
                     <p>Hubungi kami jika Anda membutuhkan bantuan</p>
                 </div>
                 <div class="kontak-card">
@@ -284,15 +284,14 @@
         <div class="footer-container">
             <div class="footer-col footer-brand">
                 <h3 class="footer-logo"><span class="logo-moto">Moto</span><span class="logo-care">Care</span></h3>
-                <p>Lokasi dekat dari Simpang tanya sayang, merupakan bengkel yang Anda butuhkan. Kami menyediakan berbagai layanan perawatan motor dengan teknisi berpengalaman.</p>
+                <p>MotoCare adalah bengkel perawatan motor di Madiun, Jawa Timur. Kami menyediakan berbagai layanan perawatan dengan teknisi berpengalaman.</p>
             </div>
             <div class="footer-col">
-                <h4>Contact Us</h4>
+                <h4>Kontak</h4>
                 <ul>
-                    <li>WhatsApp: +62 882 7672 6132</li>
-                    <li>bengkeljayu@gmail.com</li>
+                    <li>WhatsApp: +62 882 7672 6564</li>
+                    <li>Email: halo@motocare.id</li>
                     <li>Madiun, Jawa Timur</li>
-                    <li>Kota & Stav: +62 852 7672 0166-001</li>
                 </ul>
             </div>
             <div class="footer-col footer-social">
@@ -315,7 +314,7 @@
 </div>
         </div>
         <div class="footer-bottom">
-            <p>© Copyright 2026 Motocare |</p>
+            <p>&copy; {{ date('Y') }} MotoCare. All rights reserved.</p>
         </div>
     </footer>
 

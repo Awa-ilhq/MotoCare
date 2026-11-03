@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\ImageUploadField;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Models\Service;
 use Filament\Forms;
@@ -37,20 +38,11 @@ class ServiceResource extends Resource
                     ->required()
                     ->rows(4)
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('image')
-                    ->label('Gambar Layanan')
-                    ->image()
-                    ->disk('public')
-                    ->directory('images')
-                    ->imageEditor()
-                    ->maxSize(2048)
-                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->helperText('Format JPG, PNG, atau WEBP. Maksimal 2 MB.')
-                    ->columnSpanFull(),
+                ImageUploadField::make('Gambar Layanan'),
                 Forms\Components\TextInput::make('estimated_price')
                     ->label('Estimasi Harga (Rp)')
                     ->required()
-                    ->numeric()
+                    ->integer()
                     ->minValue(0)
                     ->prefix('Rp'),
             ]);

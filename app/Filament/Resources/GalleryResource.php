@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Forms\ImageUploadField;
 use App\Filament\Resources\GalleryResource\Pages;
 use App\Models\Gallery;
 use Filament\Forms;
@@ -28,17 +29,7 @@ class GalleryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->label('Gambar Galeri')
-                    ->image()
-                    ->disk('public')
-                    ->directory('images')
-                    ->imageEditor()
-                    ->maxSize(2048)
-                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->helperText('Format JPG, PNG, atau WEBP. Maksimal 2 MB.')
-                    ->required()
-                    ->columnSpanFull(),
+                ImageUploadField::make('Gambar Galeri', required: true),
                 Forms\Components\TextInput::make('caption')
                     ->label('Keterangan')
                     ->maxLength(255)
