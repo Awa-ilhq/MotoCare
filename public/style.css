@@ -384,6 +384,7 @@ ul { list-style: none; }
     display: grid;
     grid-template-columns: 1.2fr 1fr 1fr 1fr;
     grid-template-rows: 220px 220px;
+    grid-auto-rows: 220px;
     gap: 8px;
     grid-template-areas:
         "a b c d"
@@ -430,6 +431,13 @@ ul { list-style: none; }
 .galeri-item:nth-child(5) { grid-area: e; }
 .galeri-item:nth-child(6) { grid-area: f; }
 .galeri-item:nth-child(7) { grid-area: g; }
+
+.galeri-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #aaa;
+    padding: 40px 0;
+}
 
 /* ============================================================
    BRANDS

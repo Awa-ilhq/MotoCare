@@ -110,25 +110,13 @@
         <div class="galeri-container">
             <h2 class="section-title-center"><span class="red">Galeri</span> Kami</h2>
             <div class="galeri-grid">
-                <div class="galeri-item galeri-tall">
-                    <img src="{{ asset('images/galeri1.png') }}" alt="Galeri 1">
-                </div>
-                <div class="galeri-item">
-                    <img src="{{ asset('images/galeri2.png') }}" alt="Galeri 2">
-                </div>
-                <div class="galeri-item">
-                    <img src="{{ asset('images/galeri3.png') }}" alt="Galeri 3">
-                </div>
-                <div class="galeri-item galeri-wide">
-                    <img src="{{ asset('images/galeri4.png') }}" alt="Galeri 4">
-                </div>
-                <div class="galeri-item">
-                    <img src="{{ asset('images/galeri5.png') }}" alt="Galeri 5">
-                </div>
-                <div class="galeri-item galeri-wide">
-                    <img src="{{ asset('images/galeri6.png') }}" alt="Galeri 6">
-                </div>
-
+                @forelse ($galleries as $gallery)
+                    <div class="galeri-item">
+                        <img src="{{ $gallery->image_url }}" alt="{{ $gallery->caption ?? 'Galeri MotoCare' }}">
+                    </div>
+                @empty
+                    <p class="galeri-empty">Belum ada foto galeri yang tersedia.</p>
+                @endforelse
             </div>
         </div>
     </section>

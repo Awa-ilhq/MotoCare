@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Contact;
+use App\Models\Gallery;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class HomeController extends Controller
     {
         return view('welcome', [
             'services' => Service::orderBy('name')->get(),
+            'galleries' => Gallery::where('is_active', true)->orderBy('id')->get(),
         ]);
     }
 
